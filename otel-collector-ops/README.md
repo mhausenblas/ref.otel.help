@@ -1,10 +1,10 @@
 # Good practices operating OpenTelemetry collectors
 
 > Author: Michael Hausenblas
+>
 > Contact: `mh9@o11y.engineering`
 
-This document describes good practices operating [OpenTelemetry collectors][otelcol]. The target audience are platform operator and devops/SRE roles.
-I assume you have a basic familiarity with OpenTelemetry and cloud native environments including but not limited to Kubernetes and AWS Lambda.
+This document describes good practices operating [OpenTelemetry collectors][otelcol]. The target audience are platform operators and devops/SRE roles that deploy OTel collectors for the telemetry of their workloads such as containerized microservices. I assume you have a basic familiarity with OpenTelemetry and cloud native environments including but not limited to Kubernetes and AWS Lambda.
 
 --- 
 
