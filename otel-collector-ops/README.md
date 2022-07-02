@@ -41,8 +41,13 @@ service:
     metrics:
       level: detailed
       address: 0.0.0.0:8888
-
 ...
+
+extensions:
+  pprof:
+    endpoint: localhost:1777
+...
+
 exporters:
   logging:
     loglevel: debug
@@ -78,7 +83,53 @@ If you use Prometheus to scrape the collector and visualize them in Grafana, an 
 
 ### Profiling
 
-You can consume the `pprof` formatted profiles with CP like Parca:
+You can consume the `pprof` formatted profiles the OTel collector exposes with one of the Continuos Profiling tools (e.g. CNCF Pixie, Parca, Pyroscope).
+
+Using [Parca](https://www.parca.dev/docs/binary) with the following configuration stored in a file called `parca.yaml`:
+
+```yaml
+debug_info:
+  bucket:
+    type: "FILESYSTEM"
+    config:
+      directory: "./tmp"
+  cache:
+    type: "FILESYSTEM"
+    config:
+      directory: "./tmp"
+
+scrape_configs:
+  - job_name: "default"
+    scrape_interval: "2s"
+    static_configs:
+      - targets: ["127.0.0.1:1777"]
+```
+
+You can now run Parca like so (assuming you've done a port-forward for the OTel collector on port `1777` to the machine where you run Parca):
+
+
+```shell
+$ parca --config-path="parca.yaml"
+ooooooooo.
+`888   `Y88.
+ 888   .d88'  .oooo.   oooo d8b  .ooooo.   .oooo.
+ 888ooo88P'  `P  )88b  `888""8P d88' `"Y8 `P  )88b
+ 888          .oP"888   888     888        .oP"888
+ 888         d8(  888   888     888   .o8 d8(  888
+o888o        `Y888""8o d888b    `Y8bod8P' `Y888""8o
+
+level=info name=parca ts=2022-05-24T13:43:18.645322Z caller=badger.go:100 msg="Set nextTxnTs to 0"
+level=info name=parca ts=2022-05-24T13:43:18.64803Z caller=factory.go:49 component=debuginfod msg="loading bucket configuration"
+level=info name=parca ts=2022-05-24T13:43:18.648642Z caller=factory.go:49 msg="loading bucket configuration"
+level=info name=parca ts=2022-05-24T13:43:18.649058Z caller=server.go:92 msg="starting server" addr=:7070
+...
+
+```
+
+When you now open [localhost:7070](http://localhost:7070) in your browser of choice, you should see something like:
+
+![The ADOT collector profiles in Parca](adot-col-in-parca.png)
+
 
 ## Statefulness
 
