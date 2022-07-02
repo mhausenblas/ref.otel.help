@@ -18,7 +18,7 @@ Choose, roll your own
 
 ## Health and Performance Monitoring
 
-An example dashboard might look as follows:
+An [example dashboard][example-dashboard] might look as follows:
 
 ![Screen shot of Grafana dashboard for OTel collector monitoring](example-otel-collector-dashboard.png)
 
@@ -26,3 +26,4 @@ An example dashboard might look as follows:
 
 
 [otelcol]: https://opentelemetry.io/docs/collector/
+[example-dashboard]: otel-collector-dashboard.json
