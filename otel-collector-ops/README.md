@@ -24,9 +24,54 @@ Let's have a look at pros and cons for each option:
 
 ## Health and Performance Monitoring
 
-An [example dashboard][example-dashboard] might look as follows:
+The OTel collector provides built-in mechanism for monitoring and troubleshooting. It provides rich telemetry, configurable via the [`service` section in the config][otelcol-config-service]:
+
+```yaml
+service:
+  telemetry:
+    logs:
+      level: debug
+    metrics:
+      level: detailed
+      address: 0.0.0.0:8888
+
+...
+exporters:
+  logging:
+    loglevel: debug
+...
+```
+
+### Logs
+
+### Metrics
+
+You can get metrics in Prometheus exposition format, for example, in a Kubernetes setup you can forward traffic locally:
+
+```shell
+$ kubectl port-forward svc/adot-collector 8888:8888   
+```
+
+In a different session:
+
+```shell
+$ curl localhost:8888/metrics
+# HELP otelcol_exporter_enqueue_failed_log_records Number of log records failed to be added to the sending queue.
+# TYPE otelcol_exporter_enqueue_failed_log_records counter
+otelcol_exporter_enqueue_failed_log_records{exporter="awsemf",service_instance_id="f4e35993-b0df-4bd4-80ab-554c847f6156",service_version="latest"} 0
+otelcol_exporter_enqueue_failed_log_records{exporter="awsprometheusremotewrite",service_instance_id="f4e35993-b0df-4bd4-80ab-554c847f6156",service_version="latest"} 0
+otelcol_exporter_enqueue_failed_log_records{exporter="awsxray",service_instance_id="f4e35993-b0df-4bd4-80ab-554c847f6156",service_version="latest"} 0
+otelcol_exporter_enqueue_failed_log_records{exporter="logging",service_instance_id="f4e35993-b0df-4bd4-80ab-554c847f6156",service_version="latest"} 0
+...
+```
+
+If you use Prometheus to scrape the collector and visualize them in Grafana, an [example dashboard][example-dashboard] might look as follows:
 
 ![Screen shot of Grafana dashboard for OTel collector monitoring](example-otel-collector-dashboard.png)
+
+### Profiling
+
+You can consume the `pprof` formatted profiles with CP like Parca:
 
 ## Statefulness
 
@@ -46,6 +91,7 @@ Consider running the collector stateless.
 
 
 [otelcol]: https://opentelemetry.io/docs/collector/
+[otelcol-config-service]: https://opentelemetry.io/docs/collector/configuration/#service
 [example-dashboard]: otel-collector-dashboard.json
 [otel-distro-main]: https://opentelemetry.io/docs/collector/distributions/
 [otel-distro-prebuilt]: https://github.com/open-telemetry/opentelemetry-collector-releases/releases
