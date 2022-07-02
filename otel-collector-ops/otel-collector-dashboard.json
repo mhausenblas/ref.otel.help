@@ -1,7 +1,7 @@
 {
   "__inputs": [
     {
-      "name": "DS_ADOT_METRICS GA",
+      "name": "DS_PROM",
       "label": "ADOT metrics GA",
       "description": "",
       "type": "datasource",
@@ -79,7 +79,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "fieldConfig": {
         "defaults": {
@@ -144,7 +144,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "up{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"$distro-collector-.*\"}",
@@ -156,7 +156,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "otelcol_process_uptime{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"$distro-collector-.*\"}",
@@ -174,7 +174,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "fieldConfig": {
         "defaults": {
@@ -301,7 +301,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "rate(otelcol_process_cpu_seconds{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"adot-collector-.*\"}[5m])*100",
@@ -313,7 +313,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "rate(otelcol_process_cpu_seconds{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"otel-collector-.*\"}[5m])*100",
@@ -330,7 +330,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "fieldConfig": {
         "defaults": {
@@ -457,7 +457,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "rate(otelcol_process_cpu_seconds{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"$distro-collector-.*\"}[5m])*100",
@@ -473,7 +473,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "description": "Memory usage from operating system (OS) and Go runtime",
       "fieldConfig": {
@@ -584,7 +584,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "rate(otelcol_process_memory_rss{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"adot-collector-.*\"}[5m])",
@@ -596,7 +596,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "rate(otelcol_process_memory_rss{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"otel-collector-.*\"}[5m])",
@@ -613,7 +613,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "description": "Memory usage from operating system (OS) and Go runtime",
       "fieldConfig": {
@@ -754,7 +754,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "rate(otelcol_process_runtime_total_alloc_bytes{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"$distro-collector-.*\"}[5m])",
@@ -766,7 +766,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "rate(otelcol_process_runtime_total_sys_memory_bytes{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"$distro-collector-.*\"}[5m])",
@@ -782,7 +782,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "fieldConfig": {
         "defaults": {
@@ -873,7 +873,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "sum(rate(system_cpu_time{state=\"user\"}[5m])) + sum(rate(system_cpu_time{state=\"system\"}[5m]))",
@@ -888,7 +888,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "fieldConfig": {
         "defaults": {
@@ -979,7 +979,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "system_memory_usage{state=\"free\"}",
@@ -994,7 +994,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1085,7 +1085,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "sum(rate(system_network_io[5m]))",
@@ -1100,7 +1100,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1191,7 +1191,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "sum(rate(system_disk_io[5m]))",
@@ -1206,7 +1206,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1313,7 +1313,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": true,
           "expr": "system_processes_count{status=\"running\"}",
@@ -1342,7 +1342,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1419,7 +1419,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": true,
           "expr": "sum without(instance,job,k8s_namespace) (scrape_series_added{k8s_namespace=\"$k8s_namespace\"})",
@@ -1434,7 +1434,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1553,7 +1553,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "rate(otelcol_receiver_accepted_metric_points{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"$distro-collector-.*\"}[5m])",
@@ -1568,7 +1568,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "description": "Number of metric points that could not be pushed into the pipeline\n",
       "fieldConfig": {
@@ -1688,7 +1688,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "rate(otelcol_receiver_refused_metric_points{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"$distro-collector-.*\"}[5m])",
@@ -1716,7 +1716,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "description": "number of units in batch",
       "fieldConfig": {
@@ -1854,7 +1854,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "histogram_quantile(0.5, sum(rate(otelcol_processor_batch_batch_send_size_bucket{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"$distro-collector-.*\"}[5m])) by (le,processor))",
@@ -1865,7 +1865,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "histogram_quantile(0.9, sum(rate(otelcol_processor_batch_batch_send_size_bucket{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"$distro-collector-.*\"}[5m])) by (le,processor))",
@@ -1881,7 +1881,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "description": "number of bytes in batch that was sent",
       "fieldConfig": {
@@ -2019,7 +2019,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "histogram_quantile(0.5, sum(rate(otelcol_processor_batch_batch_send_size_bytes_bucket{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"$distro-collector-.*\"}[5m])) by (le,processor))",
@@ -2030,7 +2030,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "histogram_quantile(0.9, sum(rate(otelcol_processor_batch_batch_send_size_bytes_bucket{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"$distro-collector-.*\"}[5m])) by (le,processor))",
@@ -2059,7 +2059,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "description": "current size of the retry queue (in batches)\n",
       "fieldConfig": {
@@ -2138,7 +2138,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "otelcol_exporter_queue_size{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"$distro-collector-.*\"}",
@@ -2153,7 +2153,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "description": "number of metric points successfully sent to destination\n",
       "fieldConfig": {
@@ -2263,7 +2263,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "rate(otelcol_exporter_sent_metric_points{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"$distro-collector-.*\"}[5m])",
@@ -2278,7 +2278,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_ADOT_METRICS GA}"
+        "uid": "${DS_PROM}"
       },
       "description": "number of metric points failed to be added to the sending queue\n",
       "fieldConfig": {
@@ -2388,7 +2388,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_ADOT_METRICS GA}"
+            "uid": "${DS_PROM}"
           },
           "exemplar": false,
           "expr": "rate(otelcol_exporter_enqueue_failed_metric_points{k8s_namespace=\"$k8s_namespace\",k8s_pod=~\"$distro-collector-.*\"}[5m])",
