@@ -85,7 +85,7 @@ If you use Prometheus to scrape the collector and visualize them in Grafana, an 
 
 You can consume the `pprof` formatted profiles the OTel collector exposes with one of the Continuos Profiling tools (e.g. CNCF Pixie, Parca, Pyroscope).
 
-Using [Parca](https://www.parca.dev/docs/binary) with the following configuration stored in a file called `parca.yaml`:
+Using [Parca][parca-bin] with the following configuration stored in a file called `parca.yaml`:
 
 ```yaml
 debug_info:
@@ -126,7 +126,7 @@ level=info name=parca ts=2022-05-24T13:43:18.649058Z caller=server.go:92 msg="st
 
 ```
 
-When you now open [localhost:7070](http://localhost:7070) in your browser of choice, you should see something like:
+When you now open `localhost:7070` in your browser of choice, you should see something like:
 
 ![The ADOT collector profiles in Parca](adot-col-in-parca.png)
 
@@ -155,6 +155,7 @@ Consider running the collector stateless.
 [otel-distro-prebuilt]: https://github.com/open-telemetry/opentelemetry-collector-releases/releases
 [otel-distro-aws]: https://github.com/aws-observability/aws-otel-collector
 [otel-distro-builder]: https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder
+[parca-bin]: https://www.parca.dev/docs/binary
 [opamp]: https://github.com/open-telemetry/opamp-spec
 [otel-beyond-gettingstarted]: https://medium.com/opentelemetry/opentelemetry-beyond-getting-started-5ac43cd0fe26
 [containiq-col]: https://www.containiq.com/post/opentelemetry-collector-and-exporters
