@@ -56,6 +56,62 @@ exporters:
 
 ### Logs
 
+You can get collector logs, for example, in a Kubernetes setup:
+
+```shell
+$ kubectl logs deployment/adot-collector                                                                                                                                                                                                                                                                            2022/07/02 12:21:49 AWS OTel Collector version: v0.19.0
+2022/07/02 12:21:49 found no extra config, skip it, err: open /opt/aws/aws-otel-collector/etc/extracfg.txt: no such file or directory
+2022-07-02T12:21:49.709Z        debug   awsutil@v0.54.0/conn.go:61      Using proxy address:    {"kind": "exporter", "data_type": "traces", "name": "awsxray", "proxyAddr": ""}
+2022-07-02T12:21:49.709Z        debug   awsutil@v0.54.0/conn.go:130     Fetch region from commandline/config file   {"kind": "exporter", "data_type": "traces", "name": "awsxray", "region": "eu-west-1"}
+2022-07-02T12:21:49.709Z        debug   awsxrayexporter@v0.54.0/xray_client.go:51       Using Endpoint: %s  {"kind": "exporter", "data_type": "traces", "name": "awsxray", "endpoint": "https://xray.eu-west-1.amazonaws.com"}
+2022-07-02T12:21:49.709Z        debug   awsutil@v0.54.0/conn.go:61      Using proxy address:    {"kind": "exporter", "data_type": "metrics", "name": "awsemf", "proxyAddr": ""}
+2022-07-02T12:21:49.709Z        debug   awsutil@v0.54.0/conn.go:130     Fetch region from commandline/config file   {"kind": "exporter", "data_type": "metrics", "name": "awsemf", "region": "eu-west-1"}
+2022-07-02T12:21:49.709Z        warn    awsprometheusremotewriteexporter@v0.54.0/factory.go:50  Deprecation notice: The AWS PRW Exporter will be removed in the near future, see the README and the CHANGELOG for more information.     {"kind": "exporter", "data_type": "metrics", "name": "awsprometheusremotewrite"}
+2022-07-02T12:21:49.709Z        info    service/telemetry.go:107        Setting up own telemetry...
+2022-07-02T12:21:49.710Z        info    service/telemetry.go:146        Serving Prometheus metrics {"address": ":8888", "level": "detailed"}
+2022-07-02T12:21:49.711Z        info    extensions/extensions.go:42     Starting extensions...
+2022-07-02T12:21:49.711Z        info    extensions/extensions.go:45     Extension is starting...   {"kind": "extension", "name": "health_check"}
+2022-07-02T12:21:49.711Z        info    healthcheckextension@v0.54.0/healthcheckextension.go:44 Starting health_check extension     {"config": {"Port":0,"TCPAddr":{"Endpoint":"0.0.0.0:13133"},"Path":"/","CheckCollectorPipeline":{"Enabled":false,"Interval":"5m","ExporterFailureThreshold":5}}}
+2022-07-02T12:21:49.711Z        info    extensions/extensions.go:49     Extension started.      {"kind": "extension", "name": "health_check"}
+2022-07-02T12:21:49.711Z        info    extensions/extensions.go:45     Extension is starting...   {"kind": "extension", "name": "pprof"}
+2022-07-02T12:21:49.712Z        info    pprofextension@v0.54.0/pprofextension.go:71     Starting net/http/pprof server      {"config": {"TCPAddr":{"Endpoint":"localhost:1777"},"BlockProfileFraction":0,"MutexProfileFraction":0,"SaveToFile":""}}
+2022-07-02T12:21:49.712Z        info    extensions/extensions.go:49     Extension started.      {"kind": "extension", "name": "pprof"}
+2022-07-02T12:21:49.712Z        info    extensions/extensions.go:45     Extension is starting...   {"kind": "extension", "name": "zpages"}
+2022-07-02T12:21:49.712Z        info    zpagesextension/zpagesextension.go:64   Registered zPages span processor on tracer provider
+2022-07-02T12:21:49.712Z        info    zpagesextension/zpagesextension.go:74   Registered Host's zPages
+2022-07-02T12:21:49.712Z        info    zpagesextension/zpagesextension.go:86   Starting zPages extension   {"config": {"TCPAddr":{"Endpoint":"localhost:55679"}}}
+2022-07-02T12:21:49.712Z        info    extensions/extensions.go:49     Extension started.      {"kind": "extension", "name": "zpages"}
+2022-07-02T12:21:49.712Z        info    pipelines/pipelines.go:74       Starting exporters...
+2022-07-02T12:21:49.712Z        info    pipelines/pipelines.go:78       Exporter is starting... {"kind": "exporter", "data_type": "traces", "name": "awsxray"}
+2022-07-02T12:21:49.712Z        info    pipelines/pipelines.go:82       Exporter started.       {"kind": "exporter", "data_type": "traces", "name": "awsxray"}
+2022-07-02T12:21:49.712Z        info    pipelines/pipelines.go:78       Exporter is starting... {"kind": "exporter", "data_type": "metrics", "name": "awsemf"}
+2022-07-02T12:21:49.712Z        info    pipelines/pipelines.go:82       Exporter started.       {"kind": "exporter", "data_type": "metrics", "name": "awsemf"}
+2022-07-02T12:21:49.712Z        info    pipelines/pipelines.go:78       Exporter is starting... {"kind": "exporter", "data_type": "metrics", "name": "logging"}
+2022-07-02T12:21:49.712Z        info    pipelines/pipelines.go:82       Exporter started.       {"kind": "exporter", "data_type": "metrics", "name": "logging"}
+2022-07-02T12:21:49.712Z        info    pipelines/pipelines.go:78       Exporter is starting... {"kind": "exporter", "data_type": "metrics", "name": "awsprometheusremotewrite"}
+2022-07-02T12:21:49.712Z        info    pipelines/pipelines.go:82       Exporter started.       {"kind": "exporter", "data_type": "metrics", "name": "awsprometheusremotewrite"}
+2022-07-02T12:21:49.712Z        info    pipelines/pipelines.go:86       Starting processors...
+2022-07-02T12:21:49.712Z        info    pipelines/pipelines.go:90       Processor is starting...   {"kind": "processor", "name": "batch/metrics", "pipeline": "metrics"}
+2022-07-02T12:21:49.712Z        info    pipelines/pipelines.go:94       Processor started.      {"kind": "processor", "name": "batch/metrics", "pipeline": "metrics"}
+2022-07-02T12:21:49.712Z        info    pipelines/pipelines.go:98       Starting receivers...
+2022-07-02T12:21:49.712Z        info    pipelines/pipelines.go:102      Exporter is starting... {"kind": "receiver", "name": "otlp", "pipeline": "traces"}
+2022-07-02T12:21:49.712Z        info    zapgrpc/zapgrpc.go:174  [core] [Server #1] Server created  {"grpc_log": true}
+2022-07-02T12:21:49.712Z        info    otlpreceiver/otlp.go:70 Starting GRPC server on endpoint 0.0.0.0:4317       {"kind": "receiver", "name": "otlp", "pipeline": "traces"}
+2022-07-02T12:21:49.712Z        info    otlpreceiver/otlp.go:88 Starting HTTP server on endpoint 0.0.0.0:55681      {"kind": "receiver", "name": "otlp", "pipeline": "traces"}
+2022-07-02T12:21:49.712Z        info    zapgrpc/zapgrpc.go:174  [core] [Server #1 ListenSocket #2] ListenSocket created     {"grpc_log": true}
+2022-07-02T12:21:49.712Z        info    pipelines/pipelines.go:106      Exporter started.       {"kind": "receiver", "name": "otlp", "pipeline": "traces"}
+2022-07-02T12:21:49.713Z        info    pipelines/pipelines.go:102      Exporter is starting... {"kind": "receiver", "name": "prometheus", "pipeline": "metrics"}
+2022-07-02T12:21:49.713Z        info    kubernetes/kubernetes.go:325    Using pod service account via in-cluster config     {"kind": "receiver", "name": "prometheus", "pipeline": "metrics", "discovery": "kubernetes"}
+2022-07-02T12:21:49.713Z        info    kubernetes/kubernetes.go:325    Using pod service account via in-cluster config     {"kind": "receiver", "name": "prometheus", "pipeline": "metrics", "discovery": "kubernetes"}
+2022-07-02T12:21:49.713Z        debug   discovery/manager.go:275        Starting provider       {"kind": "receiver", "name": "prometheus", "pipeline": "metrics", "provider": "kubernetes/0", "subs": "map[adot-collector-agent:{} ho11y:{}]"}
+2022-07-02T12:21:49.713Z        debug   discovery/manager.go:275        Starting provider       {"kind": "receiver", "name": "prometheus", "pipeline": "metrics", "provider": "kubernetes/1", "subs": "map[kubernetes-service-endpoints:{}]"}
+2022-07-02T12:21:49.715Z        info    pipelines/pipelines.go:106      Exporter started.       {"kind": "receiver", "name": "prometheus", "pipeline": "metrics"}
+2022-07-02T12:21:49.715Z        info    healthcheck/handler.go:129      Health Check state change  {"status": "ready"}
+2022-07-02T12:21:49.715Z        info    service/collector.go:220        Starting aws-otel-collector...      {"Version": "v0.19.0", "NumCPU": 2}
+2022-07-02T12:21:49.715Z        info    service/collector.go:128        Everything is ready. Begin running and processing data.
+...
+```
+
 ### Metrics
 
 You can get metrics in Prometheus exposition format, for example, in a Kubernetes setup you can forward traffic locally:
