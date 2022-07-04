@@ -14,5 +14,6 @@ A collection of OpenTelemetry references including good practices, tutorials, et
 ## Official references
 
 * [OpenTelemetry Status](https://opentelemetry.io/status/)
+* [Compliance of Implementations with Specification](https://github.com/open-telemetry/opentelemetry-specification/blob/main/spec-compliance-matrix.md)
 * [CNCF OpenTelemetry project dashboard](https://opentelemetry.devstats.cncf.io/) _by CNCF_
 
