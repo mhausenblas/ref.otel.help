@@ -4,7 +4,7 @@
 >
 > Contact: `mh9@o11y.engineering`
 >
-> Last update: 2022-07-02
+> Last update: 2022-07-30
 > 
 > This document describes good practices operating [OpenTelemetry collectors][otelcol]. 
 > The target audience for this document includes platform operators and devops/SRE roles 
@@ -23,9 +23,9 @@ TBD.
 
 When it comes to [distributions][otel-distro-main] you have three options:
 
-1. Use the upstream, [pre-built distro][otel-distro-prebuilt]
-1. Choose a vendor distro like [ADOT][otel-distro-aws]
-1. Roll your own, using `ocb`, the [OpenTelemetry Collector Builder][otel-distro-builder]
+1. Use the upstream, [pre-built distro][otel-distro-prebuilt].
+1. Choose a [vendor][otel-vendors] distro, for example, [ADOT][otel-distro-aws].
+1. Roll your own distro, using `ocb`, the [OpenTelemetry Collector Builder][otel-distro-builder].
 
 Let's have a look at pros and cons for each option:
 
@@ -208,6 +208,7 @@ Consider running the collector stateless.
 [otelcol-config-service]: https://opentelemetry.io/docs/collector/configuration/#service
 [example-dashboard]: otel-collector-dashboard.json
 [otel-distro-main]: https://opentelemetry.io/docs/collector/distributions/
+[otel-vendors]: https://opentelemetry.io/vendors/
 [otel-distro-prebuilt]: https://github.com/open-telemetry/opentelemetry-collector-releases/releases
 [otel-distro-aws]: https://github.com/aws-observability/aws-otel-collector
 [otel-distro-builder]: https://github.com/open-telemetry/opentelemetry-collector/tree/main/cmd/builder
