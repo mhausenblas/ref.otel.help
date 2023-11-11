@@ -1,0 +1,15 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+exporters:
+  logging:
+    verbosity: detailed
+service:
+  telemetry:
+    logs:
+      level: debug
+  pipelines:
+    logs:
+      receivers: [otlp]
+      exporters: [logging]
