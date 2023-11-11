@@ -11,7 +11,7 @@ Grogu level) to using the OTel logs bridge API to directly ingest OTLP (Yoda lev
 
 ## Baby Grogu level
 
-First, change into the `baby-grogu/` directory.
+First, change into the [`baby-grogu/`][repo-baby-grogu] directory.
 
 We're using the Python code in `baby-grogu/main.py` as an example, with the
 interesting part located in the `practice()` function:
@@ -100,7 +100,7 @@ Using the OTel logs bridge API to directly ingest OTLP (Yoda level)
 * [OpenTelemetry Logging Instrumentation][py-docs-logging] (Python docs)
 * [OpenTelemetry Logs SDK example][py-docs-logging-example] (Python docs)
 
-
+[repo-baby-grogu]: https://github.com/mhausenblas/ref.otel.help/tree/main/how-to/logs-collection/baby-grogu
 [filelog]: https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/filelogreceiver
 [otel-log-spec]: https://opentelemetry.io/docs/specs/otel/logs/
 [otel-python]: https://opentelemetry.io/docs/instrumentation/python/
