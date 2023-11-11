@@ -117,7 +117,6 @@ receivers:
     include: [ /usr/src/app/*.log ]
     operators:
       - type: json_parser
-        parse_from: attributes.message
         timestamp:
           parse_from: attributes.asctime
           layout: '%Y-%m-%dT%H:%M:%S'
