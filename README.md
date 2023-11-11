@@ -4,6 +4,7 @@ A collection of OpenTelemetry references including good practices, tutorials, et
 
 ## Articles
 
+* [Logs collection using OpenTelemetry](how-to/logs-collection/)
 * [Good practices operating OpenTelemetry collectors](otel-collector-ops/)
 
 ## Tutorials
