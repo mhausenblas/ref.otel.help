@@ -11,10 +11,18 @@ Grogu level) to using the OTel logs bridge API to directly ingest OTLP (Yoda lev
 
 ## Baby Grogu level
 
-First, change into the [`baby-grogu/`][repo-baby-grogu] directory.
+We start our journey with Baby Grogu, a alias to protect the innocent ;)
+They are a junior developer who is somewhat familar with Python, however, 
+doesn't know or care about telemetry, more precisely, about logging. So, Baby 
+Grogu one day is asked to write a "Practice The Telemetry" piece of code
+including catching bad input. What will the code look like and how will Baby
+Grogu deal with communicating progress in the code execution and potential
+error cases to the outside world?
 
-We're using the Python code in `baby-grogu/main.py` as an example, with the
-interesting part located in the `practice()` function:
+To get started, first change into the [`baby-grogu/`][repo-baby-grogu] directory.
+
+We're using Baby Grogu's Python code in `baby-grogu/main.py` as an example, 
+with the interesting part located in the `practice()` function:
 
 ```python
 start_time = time.time()
@@ -36,13 +44,15 @@ return True
 ```
 
 The above Python code doesn't really do anything useful, just printing out
-random punctuation for the specified time, however, notice the different 
-semantics of the `print()` function. For example, when we say
-`print(next_char, end="", flush=True)` we're actually performing work whereas
-when we say `print("\nDone practicing")` that's just an informational message
-that the work is done. This would be a great candidate for a log message!
-The same is true for `print(f"I need an integer value for the time to practice: {ve}")`
-which is really an error log line.
+random punctuation for the specified time. However, notice the different 
+semantics of the `print()` function Baby Grogu is using.
+
+For example, when they say `print(next_char, end="", flush=True)` they're actually 
+performing work (output) whereas when they write `print("\nDone practicing")` 
+that's just an informational message that the work is done. This would be a 
+great candidate for a log message! The same is true for 
+`print(f"I need an integer value for the time to practice: {ve}")`, which 
+really is Baby Grogu communicating that an error has occured.
 
 To execute you can either directly run it with `python3 main.py 3` to have
 baby Grogu practice for 3 seconds, or you can use a containerized version.
@@ -97,6 +107,34 @@ Overall, we have the following setup:
 ```
 ( python main.py ) --> exgru.log --> ( OTel collector ) --> stdout
 ```
+
+Let's first have a look at what Expert Grogu is doing in terms of logging
+(in `expert-grogu/main.py`, in the `practice()` function):
+
+```python
+start_time = time.time()
+try:
+    how_long_int = int(how_long)
+    logger.info("Starting to practice The Telemetry for %i second(s)", how_long_int)
+    while time.time() - start_time < how_long_int:
+        next_char = random.choice(string.punctuation)
+        print(next_char, end="", flush=True)
+        time.sleep(0.5)
+    logger.info("Done practicing")
+except ValueError as ve:
+    logger.error("I need an integer value for the time to practice: %s", ve)
+    return False
+except Exception as e:
+    logger.error("An unexpected error occurred: %s", e)
+    return False
+return True
+```
+
+So, in above function we see Expert Grogu using `logger.xxx()` functions
+to communicate status/progress as well as error conditions such as user
+providing wrong input value for the time to practice (such as `python main.py
+ABC` rather than `python main.py 5` since the former can't be parsed into an
+integer).
 
 We are using the following `Dockerfile` (installing the one dependecy we have,
 `python-json-logger==2.0.7`):
@@ -269,7 +307,24 @@ yoda-baby-grogu-1 exited with code 0
 
 May The Telemetry be with you, young Padawan!
 
+## What's next?
+
+Now that you're familiar with The Telemetry and its good practices, you could
+extend Yoda's code to do the following:
+
+1. Add tracing: try to emit spans where it makes sense.
+1. Add more context: try to use OTel resource attributes and the semantic
+   conventions to make the context of the execution more explicit.
+1. Add an o11y backend such as OpenSearch (along with Data Prepper) to the setup,
+   allowing to ingest spans and logs in OTLP format.
+1. Once you have traces and logs ingested in a backend, try to correlate these 
+two telemetry signal types in the backend along with a frontend such as Grafana.
+1. Use auto-instrumentation to further enrich telemetry.
+
+
 ## References
+
+To get started with OTel log collection (especially with Python), check out:
 
 * [OpenTelemetry Logging][otel-log-spec]
 * [A language-specific implementation of OpenTelemetry in Python][otel-python]
