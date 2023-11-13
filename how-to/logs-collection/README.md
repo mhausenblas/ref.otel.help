@@ -315,7 +315,7 @@ extend Yoda's code to do the following:
 1. Add tracing: try to emit spans where it makes sense.
 1. Add more context: try to use OTel resource attributes and the semantic
    conventions to make the context of the execution more explicit.
-1. Add an o11y backend such as OpenSearch (along with Data Prepper) to the setup,
+1. Add an o11y backend such as OpenSearch (along with [Data Prepper][dataprepper]) to the setup,
    allowing to ingest spans and logs in OTLP format.
 1. Once you have traces and logs ingested in a backend, try to correlate these 
 two telemetry signal types in the backend along with a frontend such as Grafana.
@@ -327,6 +327,7 @@ two telemetry signal types in the backend along with a frontend such as Grafana.
 To get started with OTel log collection (especially with Python), check out:
 
 * [OpenTelemetry Logging][otel-log-spec]
+* [OpenTelemetry Python][otel-python-repo] (GitHub)
 * [A language-specific implementation of OpenTelemetry in Python][otel-python]
   (OTel docs)
 * [OpenTelemetry Logging Instrumentation][py-docs-logging] (Python docs)
@@ -337,7 +338,9 @@ To get started with OTel log collection (especially with Python), check out:
 [repo-expert-grogu]: https://github.com/mhausenblas/ref.otel.help/tree/main/how-to/logs-collection/expert-grogu/
 [repo-yoda]: https://github.com/mhausenblas/ref.otel.help/tree/main/how-to/logs-collection/yoda/
 [filelog]: https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/filelogreceiver
+[dataprepper]: https://opensearch.org/docs/latest/data-prepper/index/
 [otel-log-spec]: https://opentelemetry.io/docs/specs/otel/logs/
+[otel-python-repo]: https://github.com/open-telemetry/opentelemetry-python
 [otel-python]: https://opentelemetry.io/docs/instrumentation/python/
 [py-docs-logging]: https://opentelemetry-python-contrib.readthedocs.io/en/latest/instrumentation/logging/logging.html
 [py-docs-logging-example]: https://opentelemetry-python.readthedocs.io/en/latest/examples/logs/README.html

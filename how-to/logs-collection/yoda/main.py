@@ -2,6 +2,7 @@
 The Yoda 'Train The Telemetry' version.
 """
 import logging
+import os
 import random
 import sys
 import string
@@ -9,6 +10,7 @@ import time
 
 from opentelemetry._logs import set_logger_provider
 from opentelemetry.exporter.otlp.proto.grpc._log_exporter import OTLPLogExporter
+#  from opentelemetry.sdk._logs.export import ConsoleLogExporter
 from opentelemetry.sdk._logs import LoggerProvider, LoggingHandler
 from opentelemetry.sdk._logs.export import BatchLogRecordProcessor
 from opentelemetry.sdk.resources import Resource
@@ -17,12 +19,18 @@ logger_provider = LoggerProvider(
     resource=Resource.create(
         {
             "service.name": "train-the-telemetry",
+            "service.instance.id": os.uname().nodename,
         }
     ),
 )
 set_logger_provider(logger_provider)
-exporter = OTLPLogExporter(insecure=True)
-logger_provider.add_log_record_processor(BatchLogRecordProcessor(exporter))
+
+otlp_exporter = OTLPLogExporter(insecure=True)
+logger_provider.add_log_record_processor(BatchLogRecordProcessor(otlp_exporter))
+
+#  console_exporter = ConsoleLogExporter()
+#  logger_provider.add_log_record_processor(BatchLogRecordProcessor(console_exporter))
+
 handler = LoggingHandler(level=logging.NOTSET, logger_provider=logger_provider)
 
 # Practice The Telemetry
@@ -37,6 +45,7 @@ def practice(how_long):
         bool: True for successfully completed practice, False otherwise.
     """
     practice_logger = logging.getLogger("yoda.practice")
+    practice_logger.setLevel(logging.INFO)
     start_time = time.time()
     try:
         how_long_int = int(how_long)
@@ -62,9 +71,9 @@ def main():
     # Attach OTLP handler to root logger
     logging.getLogger().addHandler(handler)
     main_logger = logging.getLogger("yoda.main")
-
+    main_logger.setLevel(logging.INFO)
     if len(sys.argv) < 2:
-        main_logger.info("Usage: python %s TIME_TO_PRACTICE_IN_SECONDS", sys.argv[0])
+        main_logger.error("Usage: python %s TIME_TO_PRACTICE_IN_SECONDS", sys.argv[0])
         sys.exit(1)
     result = practice(sys.argv[1])
     main_logger.info("Practicing The Telemetry completed: %s", result)

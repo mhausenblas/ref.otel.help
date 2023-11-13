@@ -1,4 +1,4 @@
-opentelemetry-api
-opentelemetry-sdk
+opentelemetry-api==1.21.0
+opentelemetry-sdk==1.21.0
 opentelemetry-instrumentation-logging
 opentelemetry-exporter-otlp
