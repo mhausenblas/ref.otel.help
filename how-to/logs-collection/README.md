@@ -322,7 +322,9 @@ two telemetry signal types in the backend along with a frontend such as Grafana.
 1. Use auto-instrumentation to further enrich telemetry.
 
 
-## References
+## Kudos and References
+
+Kudos go out to Severin and @hossko
 
 To get started with OTel log collection (especially with Python), check out:
 
