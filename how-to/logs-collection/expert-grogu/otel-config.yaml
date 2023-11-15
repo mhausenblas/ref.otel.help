@@ -1,6 +1,7 @@
 receivers:
   filelog:
     include: [ /usr/src/app/*.log ]
+    start_at: beginning
     operators:
     - type: json_parser
       timestamp:

@@ -78,18 +78,14 @@ services:
 ```
 
 And now you can run it with `docker-compose -f docker-compose.yaml` and you
-should see something like:
+should see something like the following output (edited to focus on the most
+important bits):
 
 ```shell
-[+] Running 2/0
- ✔ Network baby-grogu_default         Created                               0.0s
- ✔ Container baby-grogu-baby-grogu-1  Created                               0.0s
-Attaching to baby-grogu-baby-grogu-1
 baby-grogu-baby-grogu-1  | Starting to practice The Telemetry for 2 second(s)
 baby-grogu-baby-grogu-1  | /)||
 baby-grogu-baby-grogu-1  | Done practicing
 baby-grogu-baby-grogu-1  | Practicing The Telemetry completed: True
-baby-grogu-baby-grogu-1 exited with code 0
 ```
 
 Now let's up the game and use OTel!
@@ -147,7 +143,7 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 COPY . .
 ```
 
-With the following OTel collector config:
+With the following OTel collector config (visualize via [OTelBin][otelbin-expert-grogu]):
 
 ```yaml
 receivers:
@@ -194,67 +190,80 @@ Which you can run it with `docker-compose -f docker-compose.yaml` and you
 should see something like:
 
 ```shell
-Attaching to expert-grogu-baby-grogu-1, expert-grogu-collector-1
-expert-grogu-collector-1   | 2023-11-11T15:01:41.581Z   info    LogsExporter    {"kind": "exporter", "data_type": "logs", "name": "logging", "resource logs": 1, "log records": 1}
-expert-grogu-collector-1   | 2023-11-11T15:01:41.581Z   info    ResourceLog #0
+expert-grogu-collector-1   | 2023-11-15T17:21:32.811Z   info    service@v0.88.0/telemetry.go:84 Setting up own telemetry...
+expert-grogu-collector-1   | 2023-11-15T17:21:32.812Z   info    service@v0.88.0/telemetry.go:201        Serving Prometheus metrics      {"address": ":8888", "level": "Basic"}
+expert-grogu-collector-1   | 2023-11-15T17:21:32.812Z   info    exporter@v0.88.0/exporter.go:275        Deprecated component. Will be removed in future releases.       {"kind": "exporter", "data_type": "logs", "name": "logging"}
+expert-grogu-collector-1   | 2023-11-15T17:21:32.812Z   info    service@v0.88.0/service.go:143  Starting otelcol-contrib...     {"Version": "0.88.0", "NumCPU": 4}
+expert-grogu-collector-1   | 2023-11-15T17:21:32.812Z   info    extensions/extensions.go:33     Starting extensions...
+expert-grogu-collector-1   | 2023-11-15T17:21:32.812Z   info    adapter/receiver.go:45  Starting stanza receiver        {"kind": "receiver", "name": "filelog", "data_type": "logs"}
+expert-grogu-collector-1   | 2023-11-15T17:21:32.813Z   info    service@v0.88.0/service.go:169  Everything is ready. Begin running and processing data.
+expert-grogu-collector-1   | 2023-11-15T17:21:33.014Z   info    fileconsumer/file.go:182        Started watching file   {"kind": "receiver", "name": "filelog", "data_type": "logs", "component": "fileconsumer", "path": "/usr/src/app/exgru.log"}
+expert-grogu-collector-1   | 2023-11-15T17:21:33.113Z   info    LogsExporter    {"kind": "exporter", "data_type": "logs", "name": "logging", "resource logs": 1, "log records": 4}
+expert-grogu-collector-1   | 2023-11-15T17:21:33.113Z   info    ResourceLog #0
 expert-grogu-collector-1   | Resource SchemaURL:
 expert-grogu-collector-1   | ScopeLogs #0
 expert-grogu-collector-1   | ScopeLogs SchemaURL:
 expert-grogu-collector-1   | InstrumentationScope
 expert-grogu-collector-1   | LogRecord #0
-expert-grogu-collector-1   | ObservedTimestamp: 2023-11-11 15:01:41.485663255 +0000 UTC
-expert-grogu-collector-1   | Timestamp: 2023-11-11 15:01:41 +0000 UTC
+expert-grogu-collector-1   | ObservedTimestamp: 2023-11-15 17:21:33.01473246 +0000 UTC
+expert-grogu-collector-1   | Timestamp: 2023-11-15 17:16:58 +0000 UTC
 expert-grogu-collector-1   | SeverityText: INFO
 expert-grogu-collector-1   | SeverityNumber: Info(9)
-expert-grogu-collector-1   | Body: Str({"asctime": "2023-11-11T15:01:41", "levelname": "INFO", "message": "Starting to practice The Telemetry for 10 second(s)", "taskName": null})
+expert-grogu-collector-1   | Body: Str({"asctime": "2023-11-15T17:16:58", "levelname": "INFO", "message": "Starting to practice The Telemetry for 10 second(s)", "taskName": null})
 expert-grogu-collector-1   | Attributes:
 expert-grogu-collector-1   |      -> log.file.name: Str(exgru.log)
-expert-grogu-collector-1   |      -> asctime: Str(2023-11-11T15:01:41)
+expert-grogu-collector-1   |      -> asctime: Str(2023-11-15T17:16:58)
 expert-grogu-collector-1   |      -> levelname: Str(INFO)
 expert-grogu-collector-1   |      -> message: Str(Starting to practice The Telemetry for 10 second(s))
 expert-grogu-collector-1   |      -> taskName: Str(<nil>)
 expert-grogu-collector-1   | Trace ID:
 expert-grogu-collector-1   | Span ID:
 expert-grogu-collector-1   | Flags: 0
-expert-grogu-collector-1   |    {"kind": "exporter", "data_type": "logs", "name": "logging"}
-expert-grogu-collector-1   | 2023-11-11T15:01:51.581Z   info    LogsExporter    {"kind": "exporter", "data_type": "logs", "name": "logging", "resource logs": 1, "log records": 2}
-expert-grogu-collector-1   | 2023-11-11T15:01:51.581Z   info    ResourceLog #0
-expert-grogu-collector-1   | Resource SchemaURL:
-expert-grogu-collector-1   | ScopeLogs #0
-expert-grogu-collector-1   | ScopeLogs SchemaURL:
-expert-grogu-collector-1   | InstrumentationScope
-expert-grogu-collector-1   | LogRecord #0
-expert-grogu-collector-1   | ObservedTimestamp: 2023-11-11 15:01:51.484268468 +0000 UTC
-expert-grogu-collector-1   | Timestamp: 2023-11-11 15:01:51 +0000 UTC
+expert-grogu-collector-1   | LogRecord #1
+expert-grogu-collector-1   | ObservedTimestamp: 2023-11-15 17:21:33.014871669 +0000 UTC
+expert-grogu-collector-1   | Timestamp: 2023-11-15 17:17:08 +0000 UTC
 expert-grogu-collector-1   | SeverityText: INFO
 expert-grogu-collector-1   | SeverityNumber: Info(9)
-expert-grogu-collector-1   | Body: Str({"asctime": "2023-11-11T15:01:51", "levelname": "INFO", "message": "Done practicing", "taskName": null})
+expert-grogu-collector-1   | Body: Str({"asctime": "2023-11-15T17:17:08", "levelname": "INFO", "message": "Done practicing", "taskName": null})
 expert-grogu-collector-1   | Attributes:
 expert-grogu-collector-1   |      -> log.file.name: Str(exgru.log)
-expert-grogu-collector-1   |      -> asctime: Str(2023-11-11T15:01:51)
+expert-grogu-collector-1   |      -> asctime: Str(2023-11-15T17:17:08)
 expert-grogu-collector-1   |      -> levelname: Str(INFO)
 expert-grogu-collector-1   |      -> message: Str(Done practicing)
 expert-grogu-collector-1   |      -> taskName: Str(<nil>)
 expert-grogu-collector-1   | Trace ID:
 expert-grogu-collector-1   | Span ID:
 expert-grogu-collector-1   | Flags: 0
-expert-grogu-collector-1   | LogRecord #1
-expert-grogu-collector-1   | ObservedTimestamp: 2023-11-11 15:01:51.48437876 +0000 UTC
-expert-grogu-collector-1   | Timestamp: 2023-11-11 15:01:51 +0000 UTC
+expert-grogu-collector-1   | LogRecord #2
+expert-grogu-collector-1   | ObservedTimestamp: 2023-11-15 17:21:33.01487521 +0000 UTC
+expert-grogu-collector-1   | Timestamp: 2023-11-15 17:17:08 +0000 UTC
 expert-grogu-collector-1   | SeverityText: INFO
 expert-grogu-collector-1   | SeverityNumber: Info(9)
-expert-grogu-collector-1   | Body: Str({"asctime": "2023-11-11T15:01:51", "levelname": "INFO", "message": "Practicing The Telemetry completed: True", "taskName": null})
+expert-grogu-collector-1   | Body: Str({"asctime": "2023-11-15T17:17:08", "levelname": "INFO", "message": "Practicing The Telemetry completed: True", "taskName": null})
+expert-grogu-collector-1   | Attributes:
+expert-grogu-collector-1   |      -> message: Str(Practicing The Telemetry completed: True)
+expert-grogu-collector-1   |      -> taskName: Str(<nil>)
+expert-grogu-collector-1   |      -> asctime: Str(2023-11-15T17:17:08)
+expert-grogu-collector-1   |      -> log.file.name: Str(exgru.log)
+expert-grogu-collector-1   |      -> levelname: Str(INFO)
+expert-grogu-collector-1   | Trace ID:
+expert-grogu-collector-1   | Span ID:
+expert-grogu-collector-1   | Flags: 0
+expert-grogu-collector-1   | LogRecord #3
+expert-grogu-collector-1   | ObservedTimestamp: 2023-11-15 17:21:33.01487771 +0000 UTC
+expert-grogu-collector-1   | Timestamp: 2023-11-15 17:21:32 +0000 UTC
+expert-grogu-collector-1   | SeverityText: INFO
+expert-grogu-collector-1   | SeverityNumber: Info(9)
+expert-grogu-collector-1   | Body: Str({"asctime": "2023-11-15T17:21:32", "levelname": "INFO", "message": "Starting to practice The Telemetry for 10 second(s)", "taskName": null})
 expert-grogu-collector-1   | Attributes:
 expert-grogu-collector-1   |      -> log.file.name: Str(exgru.log)
-expert-grogu-collector-1   |      -> asctime: Str(2023-11-11T15:01:51)
+expert-grogu-collector-1   |      -> asctime: Str(2023-11-15T17:21:32)
 expert-grogu-collector-1   |      -> levelname: Str(INFO)
-expert-grogu-collector-1   |      -> message: Str(Practicing The Telemetry completed: True)
+expert-grogu-collector-1   |      -> message: Str(Starting to practice The Telemetry for 10 second(s))
 expert-grogu-collector-1   |      -> taskName: Str(<nil>)
 expert-grogu-collector-1   | Trace ID:
 expert-grogu-collector-1   | Span ID:
 expert-grogu-collector-1   | Flags: 0
-expert-grogu-collector-1   |    {"kind": "exporter", "data_type": "logs", "name": "logging"}
-expert-grogu-baby-grogu-1  | <(=~#`!`_<\&*|~:):.^
 ```
 
 ## Yoda level
@@ -270,7 +279,7 @@ Overall, we have the following setup:
 ( python main.py ) - OTLP -> ( OTel collector ) --> stdout
 ```
 
-With the following OTel collector config:
+With the following OTel collector config (visualize via [OTelBin][otelbin-yoda]):
 
 ```yaml
 receivers:
@@ -291,7 +300,6 @@ Now run the setup with `docker-compose -f docker-compose.yaml` and you
 should see something akin to below:
 
 ```shell
-Attaching to yoda-baby-grogu-1, yoda-collector-1
 yoda-collector-1   | 2023-11-15T16:54:22.545Z   info    service@v0.88.0/telemetry.go:84 Setting up own telemetry...
 yoda-collector-1   | 2023-11-15T16:54:22.546Z   info    service@v0.88.0/telemetry.go:201        Serving Prometheus metrics      {"address": ":8888", "level": "Basic"}
 yoda-collector-1   | 2023-11-15T16:54:22.546Z   info    exporter@v0.88.0/exporter.go:275        Deprecated component. Will be removed in future releases.       {"kind": "exporter", "data_type": "logs", "name": "logging"}
@@ -391,6 +399,8 @@ To get started with OTel log collection (especially with Python), check out:
 [repo-expert-grogu]: https://github.com/mhausenblas/ref.otel.help/tree/main/how-to/logs-collection/expert-grogu/
 [repo-yoda]: https://github.com/mhausenblas/ref.otel.help/tree/main/how-to/logs-collection/yoda/
 [filelog]: https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/filelogreceiver
+[otelbin-expert-grogu]: https://www.otelbin.io/?#config=receivers%3A*N__filelog%3A*N____include%3A_%5B_%2Fusr%2Fsrc%2Fapp%2F**.log_%5D*N____start*_at%3A_beginning*N____operators%3A*N____-_type%3A_json*_parser*N______timestamp%3A*N________parse*_from%3A_attributes.asctime*N________layout%3A_*%22*.Y-*.m-*.dT*.H%3A*.M%3A*.S*%22*N______severity%3A*N________parse*_from%3A_attributes.levelname*Nexporters%3A*N__logging%3A*N____verbosity%3A_detailed*Nservice%3A*N__pipelines%3A*N____logs%3A*N______receivers%3A_%5B_filelog_%5D*N______exporters%3A_%5B_logging_%5D%7E
+[otelbin-yoda]: https://www.otelbin.io/?#config=receivers%3A*N__otlp%3A*N____protocols%3A*N______grpc%3A*Nexporters%3A*N__logging%3A*N____verbosity%3A_detailed*Nservice%3A*N__pipelines%3A*N____logs%3A*N______receivers%3A_%5B_otlp_%5D*N______exporters%3A_%5B_logging_%5D%7E
 [dataprepper]: https://opensearch.org/docs/latest/data-prepper/index/
 [otel-log-spec]: https://opentelemetry.io/docs/specs/otel/logs/
 [otel-python-repo]: https://github.com/open-telemetry/opentelemetry-python
