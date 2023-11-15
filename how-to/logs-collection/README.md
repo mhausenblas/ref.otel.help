@@ -217,8 +217,6 @@ expert-grogu-collector-1   | Trace ID:
 expert-grogu-collector-1   | Span ID:
 expert-grogu-collector-1   | Flags: 0
 expert-grogu-collector-1   |    {"kind": "exporter", "data_type": "logs", "name": "logging"}
-expert-grogu-baby-grogu-1  | <(=~#`!`_<\&*|~:):.^
-expert-grogu-baby-grogu-1 exited with code 0
 expert-grogu-collector-1   | 2023-11-11T15:01:51.581Z   info    LogsExporter    {"kind": "exporter", "data_type": "logs", "name": "logging", "resource logs": 1, "log records": 2}
 expert-grogu-collector-1   | 2023-11-11T15:01:51.581Z   info    ResourceLog #0
 expert-grogu-collector-1   | Resource SchemaURL:
@@ -256,6 +254,7 @@ expert-grogu-collector-1   | Trace ID:
 expert-grogu-collector-1   | Span ID:
 expert-grogu-collector-1   | Flags: 0
 expert-grogu-collector-1   |    {"kind": "exporter", "data_type": "logs", "name": "logging"}
+expert-grogu-baby-grogu-1  | <(=~#`!`_<\&*|~:):.^
 ```
 
 ## Yoda level
@@ -293,16 +292,68 @@ should see something akin to below:
 
 ```shell
 Attaching to yoda-baby-grogu-1, yoda-collector-1
-yoda-collector-1   | 2023-11-11T15:10:31.135Z   info    service@v0.88.0/telemetry.go:84 Setting up own telemetry...
-yoda-collector-1   | 2023-11-11T15:10:31.135Z   info    service@v0.88.0/telemetry.go:201        Serving Prometheus metrics      {"address": ":8888", "level": "Basic"}
-yoda-collector-1   | 2023-11-11T15:10:31.135Z   info    exporter@v0.88.0/exporter.go:275        Deprecated component. Will be removed in future releases.       {"kind": "exporter", "data_type": "logs", "name": "logging"}
-yoda-collector-1   | 2023-11-11T15:10:31.136Z   info    service@v0.88.0/service.go:143  Starting otelcol-contrib...     {"Version": "0.88.0", "NumCPU": 4}
-yoda-collector-1   | 2023-11-11T15:10:31.136Z   info    extensions/extensions.go:33     Starting extensions...
-yoda-collector-1   | 2023-11-11T15:10:31.136Z   warn    internal@v0.88.0/warning.go:40  Using the 0.0.0.0 address exposes this server to every network interface, which may facilitate Denial of Service attacks        {"kind": "receiver", "name": "otlp", "data_type": "logs", "documentation": "https://github.com/open-telemetry/opentelemetry-collector/blob/main/docs/security-best-practices.md#safeguards-against-denial-of-service-attacks"}
-yoda-collector-1   | 2023-11-11T15:10:31.136Z   info    otlpreceiver@v0.88.0/otlp.go:83 Starting GRPC server    {"kind": "receiver", "name": "otlp", "data_type": "logs", "endpoint": "0.0.0.0:4317"}
-yoda-collector-1   | 2023-11-11T15:10:31.136Z   info    service@v0.88.0/service.go:169  Everything is ready. Begin running and processing data.
-yoda-baby-grogu-1  | #}>&;!|.<:;++:{.?[>\
-yoda-baby-grogu-1 exited with code 0
+yoda-collector-1   | 2023-11-15T16:54:22.545Z   info    service@v0.88.0/telemetry.go:84 Setting up own telemetry...
+yoda-collector-1   | 2023-11-15T16:54:22.546Z   info    service@v0.88.0/telemetry.go:201        Serving Prometheus metrics      {"address": ":8888", "level": "Basic"}
+yoda-collector-1   | 2023-11-15T16:54:22.546Z   info    exporter@v0.88.0/exporter.go:275        Deprecated component. Will be removed in future releases.       {"kind": "exporter", "data_type": "logs", "name": "logging"}
+yoda-collector-1   | 2023-11-15T16:54:22.547Z   info    service@v0.88.0/service.go:143  Starting otelcol-contrib...     {"Version": "0.88.0", "NumCPU": 4}
+yoda-collector-1   | 2023-11-15T16:54:22.547Z   info    extensions/extensions.go:33     Starting extensions...
+yoda-collector-1   | 2023-11-15T16:54:22.547Z   warn    internal@v0.88.0/warning.go:40  Using the 0.0.0.0 address exposes this server to every network interface, which may facilitate Denial of Service attacks    {"kind": "receiver", "name": "otlp", "data_type": "logs", "documentation": "https://github.com/open-telemetry/opentelemetry-collector/blob/main/docs/security-best-practices.md#safeguards-against-denial-of-service-attacks"}
+yoda-collector-1   | 2023-11-15T16:54:22.549Z   info    otlpreceiver@v0.88.0/otlp.go:83 Starting GRPC server    {"kind": "receiver", "name": "otlp", "data_type": "logs", "endpoint": "0.0.0.0:4317"}
+yoda-collector-1   | 2023-11-15T16:54:22.550Z   info    service@v0.88.0/service.go:169  Everything is ready. Begin running and processing data.
+yoda-collector-1   | 2023-11-15T16:54:27.667Z   info    LogsExporter    {"kind": "exporter", "data_type": "logs", "name": "logging", "resource logs": 1, "log records": 1}
+yoda-collector-1   | 2023-11-15T16:54:27.668Z   info    ResourceLog #0
+yoda-collector-1   | Resource SchemaURL:
+yoda-collector-1   | Resource attributes:
+yoda-collector-1   |      -> telemetry.sdk.language: Str(python)
+yoda-collector-1   |      -> telemetry.sdk.name: Str(opentelemetry)
+yoda-collector-1   |      -> telemetry.sdk.version: Str(1.21.0)
+yoda-collector-1   |      -> service.name: Str(train-the-telemetry)
+yoda-collector-1   |      -> service.instance.id: Str(33992a23112e)
+yoda-collector-1   | ScopeLogs #0
+yoda-collector-1   | ScopeLogs SchemaURL:
+yoda-collector-1   | InstrumentationScope opentelemetry.sdk._logs._internal
+yoda-collector-1   | LogRecord #0
+yoda-collector-1   | ObservedTimestamp: 1970-01-01 00:00:00 +0000 UTC
+yoda-collector-1   | Timestamp: 2023-11-15 16:54:22.651675136 +0000 UTC
+yoda-collector-1   | SeverityText: INFO
+yoda-collector-1   | SeverityNumber: Info(9)
+yoda-collector-1   | Body: Str(Starting to practice The Telemetry for 10 second(s))
+yoda-collector-1   | Trace ID:
+yoda-collector-1   | Span ID:
+yoda-collector-1   | Flags: 0
+yoda-collector-1   |    {"kind": "exporter", "data_type": "logs", "name": "logging"}
+yoda-collector-1   | 2023-11-15T16:54:32.715Z   info    LogsExporter    {"kind": "exporter", "data_type": "logs", "name": "logging", "resource logs": 1, "log records": 2}
+yoda-collector-1   | 2023-11-15T16:54:32.716Z   info    ResourceLog #0
+yoda-collector-1   | Resource SchemaURL:
+yoda-collector-1   | Resource attributes:
+yoda-collector-1   |      -> telemetry.sdk.language: Str(python)
+yoda-collector-1   |      -> telemetry.sdk.name: Str(opentelemetry)
+yoda-collector-1   |      -> telemetry.sdk.version: Str(1.21.0)
+yoda-collector-1   |      -> service.name: Str(train-the-telemetry)
+yoda-collector-1   |      -> service.instance.id: Str(33992a23112e)
+yoda-collector-1   | ScopeLogs #0
+yoda-collector-1   | ScopeLogs SchemaURL:
+yoda-collector-1   | InstrumentationScope opentelemetry.sdk._logs._internal
+yoda-collector-1   | LogRecord #0
+yoda-collector-1   | ObservedTimestamp: 1970-01-01 00:00:00 +0000 UTC
+yoda-collector-1   | Timestamp: 2023-11-15 16:54:32.713701888 +0000 UTC
+yoda-collector-1   | SeverityText: INFO
+yoda-collector-1   | SeverityNumber: Info(9)
+yoda-collector-1   | Body: Str(Done practicing)
+yoda-collector-1   | Trace ID:
+yoda-collector-1   | Span ID:
+yoda-collector-1   | Flags: 0
+yoda-collector-1   | LogRecord #1
+yoda-collector-1   | ObservedTimestamp: 1970-01-01 00:00:00 +0000 UTC
+yoda-collector-1   | Timestamp: 2023-11-15 16:54:32.714062336 +0000 UTC
+yoda-collector-1   | SeverityText: INFO
+yoda-collector-1   | SeverityNumber: Info(9)
+yoda-collector-1   | Body: Str(Practicing The Telemetry completed: True)
+yoda-collector-1   | Trace ID:
+yoda-collector-1   | Span ID:
+yoda-collector-1   | Flags: 0
+yoda-collector-1   |    {"kind": "exporter", "data_type": "logs", "name": "logging"}
+yoda-baby-grogu-1  | =`;*'+.|,+?):(*-<}~}
 ```
 
 May The Telemetry be with you, young Padawan!
