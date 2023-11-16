@@ -380,21 +380,25 @@ extend Yoda's code to do the following:
 two telemetry signal types in the backend along with a frontend such as Grafana.
 1. Use auto-instrumentation to further enrich telemetry.
 
+The community is currently working on the [Events API Interface][otel-logs-spec]
+which is a good place to continue your research and maybe provide feedback?
 
 ## Kudos and References
 
 Kudos go out to [Severin Neumann][svrnm] and [Houssam Chehab][hossko] who both were 
 very patient with me and pivotal concerning making Yoda level work, I owe you!
 
-If you want to dive deeper into topic of OTel log collection (especially with Python), 
+If you want to dive deeper into OTel log collection (especially with Python), 
 check out the following resources:
 
-* [OpenTelemetry Logging][otel-log-spec]
-* [OpenTelemetry Python][otel-python-repo] (GitHub)
+* [OpenTelemetry Logging][otel-logs-spec] (OTel docs)
+* [Events API Interface][otel-logs-spec] (OTel docs)
+* [General Logs Attributes][otel-semconv-logs] (semantic conventions)
+* [OpenTelemetry Python][otel-python-repo] (GitHub repo)
 * [A language-specific implementation of OpenTelemetry in Python][otel-python]
   (OTel docs)
-* [OpenTelemetry Logging Instrumentation][py-docs-logging] (Python docs)
-* [OpenTelemetry Logs SDK example][py-docs-logging-example] (Python docs)
+* [OpenTelemetry Logging Instrumentation][py-docs-logs] (Python docs)
+* [OpenTelemetry Logs SDK example][py-docs-logs-example] (Python docs)
 
 
 [repo-baby-grogu]: https://github.com/mhausenblas/ref.otel.help/tree/main/how-to/logs-collection/baby-grogu/
@@ -406,9 +410,11 @@ check out the following resources:
 [dataprepper]: https://opensearch.org/docs/latest/data-prepper/index/
 [svrnm]: https://github.com/svrnm
 [hossko]: https://github.com/hossko
-[otel-log-spec]: https://opentelemetry.io/docs/specs/otel/logs/
+[otel-logs-spec]: https://opentelemetry.io/docs/specs/otel/logs/
+[otel-logs-events]: https://opentelemetry.io/docs/specs/otel/logs/event-api/
+[otel-semconv-logs]: https://opentelemetry.io/docs/specs/semconv/general/logs/
 [otel-python-repo]: https://github.com/open-telemetry/opentelemetry-python
 [otel-python]: https://opentelemetry.io/docs/instrumentation/python/
-[py-docs-logging]: https://opentelemetry-python-contrib.readthedocs.io/en/latest/instrumentation/logging/logging.html
-[py-docs-logging-example]: https://opentelemetry-python.readthedocs.io/en/latest/examples/logs/README.html
+[py-docs-logs]: https://opentelemetry-python-contrib.readthedocs.io/en/latest/instrumentation/logging/logging.html
+[py-docs-logs-example]: https://opentelemetry-python.readthedocs.io/en/latest/examples/logs/README.html
 
