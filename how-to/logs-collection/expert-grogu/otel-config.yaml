@@ -10,10 +10,10 @@ receivers:
       severity:
         parse_from: attributes.levelname
 exporters:
-  logging:
+  debug:
     verbosity: detailed
 service:
   pipelines:
     logs:
       receivers: [ filelog ]
-      exporters: [ logging ]
+      exporters: [ debug ]

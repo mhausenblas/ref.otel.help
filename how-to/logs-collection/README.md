@@ -6,12 +6,16 @@ programming language, however note that at time of writing the logs support
 there is still early days so things might need some updating.
 
 We will show the evolution from using print statements for logging 
-(Baby Grogu level) to logging to a file along with the OTel collector (Expert 
-Grogu level) to using the OTel logs bridge API to directly ingest OTLP (Yoda level).
+(_Baby Grogu_ level) to logging to a file along with the OTel collector 
+(_Expert Grogu_ level) to using the OTel logs bridge API to directly
+ingest OTLP (_Yoda_ level) into the collector.
+
+If you want to follow along, you need Docker installed and first off,
+go ahead and `git clone https://github.com/mhausenblas/ref.otel.help.git`.
 
 ## Baby Grogu level
 
-We start our journey with Baby Grogu, a alias to protect the innocent ;)
+We start our journey with Baby Grogu, an alias to protect the innocent ;)
 They are a junior developer who is somewhat familar with Python, however, 
 doesn't know or care about telemetry, more precisely, about logging. So, Baby 
 Grogu one day is asked to write a "Practice The Telemetry" piece of code
@@ -44,20 +48,23 @@ return True
 ```
 
 The above Python code doesn't really do anything useful, just printing out
-random punctuation for the specified time. However, notice the different 
-semantics of the `print()` function Baby Grogu is using.
+random punctuation for the specified time, which represents the "practicing".
+However, do notice the different semantics of the `print()` function Baby 
+Grogu is using here.
 
 For example, when they say `print(next_char, end="", flush=True)` they're actually 
-performing work (output) whereas when they write `print("\nDone practicing")` 
-that's just an informational message that the work is done. This would be a 
-great candidate for a log message! The same is true for 
-`print(f"I need an integer value for the time to practice: {ve}")`, which 
-really is Baby Grogu communicating that an error has occured.
+performing work, whereas when they write `print("\nDone practicing")` 
+that's an informational message that the work is completed. This would be a 
+great candidate for a log message! 
 
-To execute you can either directly run it with `python3 main.py 3` to have
-baby Grogu practice for 3 seconds, or you can use a containerized version.
+The same is true for `print(f"I need an integer value for the time to practice: {ve}")`, 
+which really is Baby Grogu communicating that an error has occured.
 
-For this, we're using the following `Dockerfile`:
+To execute the code you can either directly run it with `python3 main.py 3` to have
+baby Grogu practice for 3 seconds, or you can use a containerized version (Python
+3.11 required).
+
+For the containerized version, we're using the following `Dockerfile`:
 
 ```yaml
 FROM python:3
@@ -65,7 +72,9 @@ WORKDIR /usr/src/app
 COPY . .
 
 ```
-In the context of the following Docker Compose file:
+
+Above Dockerfile, we use in the context of the following Docker Compose file
+`docker-compose.yaml`:
 
 ```yaml
 version: '3'
@@ -77,8 +86,9 @@ services:
     - .:/usr/src/app
 ```
 
-And now you can run it with `docker-compose -f docker-compose.yaml` and you
-should see something like the following output (edited to focus on the most
+At this point you can enjoy Baby Grogu's efforts by running it with
+`docker-compose -f docker-compose.yaml` and you should see an output akin to
+something shown in the following (note: edited to focus on the most
 important bits):
 
 ```shell
@@ -88,15 +98,23 @@ baby-grogu-baby-grogu-1  | Done practicing
 baby-grogu-baby-grogu-1  | Practicing The Telemetry completed: True
 ```
 
-Now let's up the game and use OTel!
+OK, Baby Grogu did a good job, now it's time to rest. Go get up, drink a bit
+of water, and when you come back with a fresh mind, let's up the game and 
+use OTel!
 
 ## Expert Grogu level
 
+Over time, Baby Grogu has learned about observability and telemetry
+specifically. They have advanced to Expert Grogu level. How? Glad you asked,
+let me show you.
+
 First, change into the [`expert-grogu/`][repo-expert-grogu] directory.
 
-In this scenario we're logging to a file (in JSON format) from the Python app.
-Then, we're using the OTel collector to read and parse the logs file content using
-the [filelog receiver][filelog].
+In this scenario Expert Grogu is logging into a file (in JSON format),
+from their Python app. Then, they are using the OTel collector to read that 
+very log file, parse the log records using the [filelog receiver][filelog]
+in the OTel collector and finally output it to `stdout` using the
+[debug exporter][debug]. Makes sense? Let's see it in action …
 
 Overall, we have the following setup:
 
@@ -157,13 +175,13 @@ receivers:
         severity:
           parse_from: attributes.levelname
 exporters:
-  logging:
+  debug:
     verbosity: detailed
 service:
   pipelines:
     logs:
       receivers: [ filelog ]
-      exporters: [ logging ]
+      exporters: [ debug ]
 ```
 
 In the Docker Compose file that looks as follows, we bring all above together:
@@ -268,12 +286,16 @@ expert-grogu-collector-1   | Flags: 0
 
 ## Yoda level
 
+Now we're switching gears and look over Yoda's shoulders, a Telemetry Master.
+
 First, change into the [`yoda/`][repo-yoda] directory.
 
-In this scenario we're using the OTel logs bridge API in the Python app to directly 
-ingest logs in OTLP format into the OTel collector.
+In this scenario we see Yoda using the OTel logs bridge API in the Python app 
+to directly ingest logs, in [OpenTelemetry Protocol][otlp] (OTLP) format,
+into the OTel collector. This is both faster and more reliable than first
+logging to a file and have the collector read it off of it!
 
-Overall, we have the following setup:
+Overall, we have the following setup Yoda is using:
 
 ```
 ( python main.py ) - OTLP -> ( OTel collector ) --> stdout
@@ -287,16 +309,16 @@ receivers:
     protocols:
       grpc:
 exporters:
-  logging:
+  debug:
     verbosity: detailed
 service:
   pipelines:
     logs:
       receivers: [ otlp ]
-      exporters: [ logging ]
+      exporters: [ debug ]
 ```
 
-Now run the setup with `docker-compose -f docker-compose.yaml` and you
+Now run Yoda's setup with `docker-compose -f docker-compose.yaml` and you
 should see something akin to below:
 
 ```shell
@@ -364,6 +386,10 @@ yoda-collector-1   |    {"kind": "exporter", "data_type": "logs", "name": "loggi
 yoda-baby-grogu-1  | =`;*'+.|,+?):(*-<}~}
 ```
 
+Fun, hu? You can play around with Yoda's source code to add more contextual
+information and add processors to manipulate the log records as they pass the
+collector, now.
+
 May The Telemetry be with you, young Padawan!
 
 ## What's next?
@@ -371,13 +397,15 @@ May The Telemetry be with you, young Padawan!
 Now that you're familiar with The Telemetry and its good practices, you could
 extend Yoda's code to do the following:
 
-1. Add tracing: try to emit spans where it makes sense.
-1. Add more context: try to use OTel resource attributes and the semantic
+1. Add more context. For example, try to use OTel resource attributes and the semantic
    conventions to make the context of the execution more explicit.
+1. Enrich the logs in the OTel collector or filter certain severity levels, using
+   processors such as the transform or attributes processors.
+1. Add tracing support by emitting spans, where it makes sense.
 1. Add an o11y backend such as OpenSearch (along with [Data Prepper][dataprepper]) to the setup,
    allowing to ingest spans and logs in OTLP format.
 1. Once you have traces and logs ingested in a backend, try to correlate these 
-two telemetry signal types in the backend along with a frontend such as Grafana.
+   two telemetry signal types in the backend along with a frontend such as Grafana.
 1. Use auto-instrumentation to further enrich telemetry.
 
 The community is currently working on the [Events API Interface][otel-logs-spec]
@@ -405,7 +433,9 @@ check out the following resources:
 [repo-expert-grogu]: https://github.com/mhausenblas/ref.otel.help/tree/main/how-to/logs-collection/expert-grogu/
 [repo-yoda]: https://github.com/mhausenblas/ref.otel.help/tree/main/how-to/logs-collection/yoda/
 [filelog]: https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/filelogreceiver
+[debug]: https://github.com/open-telemetry/opentelemetry-collector/tree/main/exporter/debugexporter
 [otelbin-expert-grogu]: https://www.otelbin.io/?#config=receivers%3A*N__filelog%3A*N____include%3A_%5B_%2Fusr%2Fsrc%2Fapp%2F**.log_%5D*N____start*_at%3A_beginning*N____operators%3A*N____-_type%3A_json*_parser*N______timestamp%3A*N________parse*_from%3A_attributes.asctime*N________layout%3A_*%22*.Y-*.m-*.dT*.H%3A*.M%3A*.S*%22*N______severity%3A*N________parse*_from%3A_attributes.levelname*Nexporters%3A*N__logging%3A*N____verbosity%3A_detailed*Nservice%3A*N__pipelines%3A*N____logs%3A*N______receivers%3A_%5B_filelog_%5D*N______exporters%3A_%5B_logging_%5D%7E
+[otlp]: https://opentelemetry.io/docs/specs/otlp/
 [otelbin-yoda]: https://www.otelbin.io/?#config=receivers%3A*N__otlp%3A*N____protocols%3A*N______grpc%3A*Nexporters%3A*N__logging%3A*N____verbosity%3A_detailed*Nservice%3A*N__pipelines%3A*N____logs%3A*N______receivers%3A_%5B_otlp_%5D*N______exporters%3A_%5B_logging_%5D%7E
 [dataprepper]: https://opensearch.org/docs/latest/data-prepper/index/
 [svrnm]: https://github.com/svrnm
