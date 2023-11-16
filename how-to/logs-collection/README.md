@@ -61,16 +61,15 @@ The same is true for `print(f"I need an integer value for the time to practice: 
 which really is Baby Grogu communicating that an error has occured.
 
 To execute the code you can either directly run it with `python3 main.py 3` to have
-baby Grogu practice for 3 seconds, or you can use a containerized version (Python
+Baby Grogu practice for 3 seconds, or you can use a containerized version (Python
 3.11 required).
 
 For the containerized version, we're using the following `Dockerfile`:
 
 ```yaml
-FROM python:3
+FROM python:3.11
 WORKDIR /usr/src/app
 COPY . .
-
 ```
 
 Above Dockerfile, we use in the context of the following Docker Compose file
@@ -154,7 +153,7 @@ We are using the following `Dockerfile` (installing the one dependecy we have,
 `python-json-logger==2.0.7`):
 
 ```
-FROM python:3
+FROM python:3.11
 WORKDIR /usr/src/app
 COPY requirements.txt requirements.txt
 RUN pip3 install --no-cache-dir -r requirements.txt
