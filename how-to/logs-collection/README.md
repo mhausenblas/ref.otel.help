@@ -383,9 +383,11 @@ two telemetry signal types in the backend along with a frontend such as Grafana.
 
 ## Kudos and References
 
-Kudos go out to Severin and @hossko
+Kudos go out to [Severin Neumann][svrnm] and [Houssam Chehab][hossko] who both were 
+very patient with me and pivotal concerning making Yoda level work, I owe you!
 
-To get started with OTel log collection (especially with Python), check out:
+If you want to dive deeper into topic of OTel log collection (especially with Python), 
+check out the following resources:
 
 * [OpenTelemetry Logging][otel-log-spec]
 * [OpenTelemetry Python][otel-python-repo] (GitHub)
@@ -402,6 +404,8 @@ To get started with OTel log collection (especially with Python), check out:
 [otelbin-expert-grogu]: https://www.otelbin.io/?#config=receivers%3A*N__filelog%3A*N____include%3A_%5B_%2Fusr%2Fsrc%2Fapp%2F**.log_%5D*N____start*_at%3A_beginning*N____operators%3A*N____-_type%3A_json*_parser*N______timestamp%3A*N________parse*_from%3A_attributes.asctime*N________layout%3A_*%22*.Y-*.m-*.dT*.H%3A*.M%3A*.S*%22*N______severity%3A*N________parse*_from%3A_attributes.levelname*Nexporters%3A*N__logging%3A*N____verbosity%3A_detailed*Nservice%3A*N__pipelines%3A*N____logs%3A*N______receivers%3A_%5B_filelog_%5D*N______exporters%3A_%5B_logging_%5D%7E
 [otelbin-yoda]: https://www.otelbin.io/?#config=receivers%3A*N__otlp%3A*N____protocols%3A*N______grpc%3A*Nexporters%3A*N__logging%3A*N____verbosity%3A_detailed*Nservice%3A*N__pipelines%3A*N____logs%3A*N______receivers%3A_%5B_otlp_%5D*N______exporters%3A_%5B_logging_%5D%7E
 [dataprepper]: https://opensearch.org/docs/latest/data-prepper/index/
+[svrnm]: https://github.com/svrnm
+[hossko]: https://github.com/hossko
 [otel-log-spec]: https://opentelemetry.io/docs/specs/otel/logs/
 [otel-python-repo]: https://github.com/open-telemetry/opentelemetry-python
 [otel-python]: https://opentelemetry.io/docs/instrumentation/python/
